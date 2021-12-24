@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import './lannister_app.css'
-import { Link } from 'react-router-dom'
-import { Navbar, NavbarBrand } from 'react-bootstrap'
-import { BigNumber } from "@ethersproject/bignumber";
+
 import { useAlert } from 'react-alert'
-import { FaWallet, FaDollarSign, FaCheckCircle, FaCoins, FaCartArrowDown, FaDiscord, FaLayerGroup, FaFantasyFlightGames, FaLocationArrow, FaAlignJustify, FaDatabase } from 'react-icons/fa'
+import { Navbar, NavbarBrand } from 'react-bootstrap'
+import { FaWallet, FaDollarSign, FaCheckCircle, FaCoins, FaCartArrowDown, FaDiscord, FaLayerGroup, FaFantasyFlightGames, FaAlignJustify, FaDatabase, FaBinoculars } from 'react-icons/fa'
 
 import Footer from '../../components/Footer'
 import NodeItem from '../../components/NodeItem';
 
+import { BigNumber } from "@ethersproject/bignumber";
 import { useWeb3React } from "@web3-react/core";
 import { injected } from "../../constants/WalletConnectors";
+import { lannistAddress, nodeRewardManagementAddress } from '../../constants/Addresses';
+
 import LANNISTERABI from '../../constants/ABI/LANNISTER.json';
 import NODEABI from '../../constants/ABI/nodeRewardManagement.json';
-import { lannistAddress, nodeRewardManagementAddress } from '../../constants/Addresses';
 
 const LannisterApp = () => {
   const [tokenBalance, setBalance] = useState(0);
@@ -26,9 +27,12 @@ const LannisterApp = () => {
   const [nodeContract, setNodeContract] = useState(undefined);
   const [nodeNames, setNodeName] = useState([]);
   const [nodeReward, setNodeReward] = useState([]);
+
   const { active, account, library, connector, activate, deactivate, chainId } = useWeb3React();
-  const owner = '0x590d80Bf325030157E5BDaDF57F08768270c8efB';
+
   const alert = useAlert();
+
+  const owner = '0x590d80Bf325030157E5BDaDF57F08768270c8efB';
   const divisor = 1000000000000000000;
 
   const MaxUint256: BigNumber = (/*#__PURE__*/BigNumber.from("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"));
@@ -46,14 +50,18 @@ const LannisterApp = () => {
 
   useEffect(() => {
     if (tokenContract === undefined || account === undefined) return;
+
     tokenContract.methods.balanceOf(account).call().then((res) => {
       setBalance(res);
     });
+
     tokenContract.methods.allowance(account, lannistAddress).call().then((res) => {
       setApproveBalance(res);
     });
+
     tokenContract.methods.getNodeNumberOf(account).call().then((res) => {
       setUserNode(res);
+
       if (res != 0) {
         tokenContract.methods.getRewardAmountOf(account).call().then((res) => {
           setTotalReward(res);
@@ -67,9 +75,11 @@ const LannisterApp = () => {
       tokenContract.methods.balanceOf(account).call().then((res) => {
         setBalance(res);
       });
+
       tokenContract.methods.allowance(account, lannistAddress).call().then((res) => {
         setApproveBalance(res);
       });
+
       tokenContract.methods.getNodeNumberOf(account).call().then((res) => {
         setUserNode(res);
         if (res != 0) {
@@ -81,11 +91,13 @@ const LannisterApp = () => {
         }
       });
     }, 3000);
+
     return () => clearInterval(ID);
   }, [tokenContract, account]);
 
   useEffect(() => {
     if (tokenContract === undefined) return;
+
     tokenContract.methods.getTotalCreatedNodes().call().then((res) => {
       setTotalNodeNumber(res);
     })
@@ -95,6 +107,7 @@ const LannisterApp = () => {
         setTotalNodeNumber(res);
       })
     }, 3000);
+
     return () => clearInterval(ID);
   }, [tokenContract])
 
@@ -104,9 +117,11 @@ const LannisterApp = () => {
       setNodeReward([]);
       return;
     }
+
     nodeContract.methods._getNodesNames(account).call().then((res) => {
       setNodeName(res.split("#"));
     })
+
     nodeContract.methods._getNodesRewardAvailable(account).call().then((res) => {
       setNodeReward(res.split("#"))
     });
@@ -115,10 +130,12 @@ const LannisterApp = () => {
       nodeContract.methods._getNodesNames(account).call().then((res) => {
         setNodeName(res.split("#"));
       });
+
       nodeContract.methods._getNodesRewardAvailable(account).call().then((res) => {
         setNodeReward(res.split("#"))
       });
     }, 3000);
+
     return () => clearInterval(ID);
   }, [account, nodeContract, userNodes])
 
@@ -127,12 +144,14 @@ const LannisterApp = () => {
       alert.show("Please install Metamask on your browser.");
       return;
     }
+
     const res = window.ethereum.networkVersion;
 
     if (res != 56) {
       alert.show("Please switch to BSC network.");
       return;
     }
+
     try {
       await activate(injected);
     } catch (ex) {
@@ -156,16 +175,19 @@ const LannisterApp = () => {
 
   async function createNode () {
     const len = newName.length;
+
     if (len <= 3 || len >= 32) {
       alert.show("Node name should be greater than 4 and smaller than 32");
       return;
     }
+
     for (let i = 0; i < nodeNames.length; i++) {
       if (newName === nodeNames[i]) {
         alert.show("Node with same name is already exist");
         return;
       }
     }
+
     tokenContract.methods.createNodeWithTokens(newName).send({ from: account }).then(() => {
       alert.show("new Node " + newName + " was created!");
     });
@@ -190,8 +212,8 @@ const LannisterApp = () => {
               <FaAlignJustify />
             </Navbar.Toggle>
             <Navbar.Collapse id="basic-navbar-nav">
-              <a type='button' href='https://bscscan.com/address/0xfFa8743e9Cb0e1D3f3D66b430a06a8B0F4C86c65' className='btn lnst-red-btn d-flex justify-content-center align-items-center me-4 mt-3' target="_blank">
-                <FaLocationArrow />
+              <a type='button' href='https://bscscan.com/address/0xfFa8743e9Cb0e1D3f3D66b430a06a8B0F4C86c65#code' className='btn lnst-red-btn d-flex justify-content-center align-items-center me-4 mt-3' target="_blank">
+                <FaBinoculars />
                 <span className='ms-2'>LNIST</span>
               </a>
               {
@@ -272,7 +294,7 @@ const LannisterApp = () => {
                 </div>
               </div>
 
-              <button type='button' className='btn btn-sm btn-owned-nodes focus-no-shadow'>Synch Nodes</button>
+              {/* <button type='button' className='btn btn-sm btn-owned-nodes focus-no-shadow'>Synch Nodes</button> */}
             </div>
           </div>
 
@@ -299,7 +321,7 @@ const LannisterApp = () => {
                 <FaDollarSign className='primary-red fs-4' />
                 <div className="d-flex justify-content-center align-items-center ms-4">
                   <div>
-                    <p className='fs-5 m-0 fw-bold'>{(parseFloat(totalRewards) / 1000000000000000000).toFixed(2)} LNIST</p>
+                    <p className='fs-5 m-0 fw-bold'>{(parseFloat(totalRewards) / 1000000000000000000).toFixed(3)} LNIST</p>
                     <p className='m-0 primary-red'>My Rewards</p>
                   </div>
                 </div>

@@ -1,6 +1,5 @@
 import { Fragment } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { render } from 'react-dom'
 import { transitions, positions, Provider as AlertProvider } from 'react-alert'
 
 import './App.css';
@@ -21,7 +20,7 @@ function App () {
     const options = {
         // you can also just use 'bottom center'
         position: positions.TOP_RIGHT,
-        timeout: 3000,
+        timeout: 5000,
         offset: '30px',
         // you can also just use 'scale'
         transition: transitions.SCALE

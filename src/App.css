@@ -116,3 +116,12 @@
 .btn-p-sm {
   padding: 2px 15px;
 }
+
+.loading {
+  background-color: #15151e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
