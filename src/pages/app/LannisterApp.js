@@ -212,7 +212,7 @@ const LannisterApp = () => {
               <FaAlignJustify />
             </Navbar.Toggle>
             <Navbar.Collapse id="basic-navbar-nav">
-              <a type='button' href='https://bscscan.com/address/0xfFa8743e9Cb0e1D3f3D66b430a06a8B0F4C86c65#code' className='btn lnst-red-btn d-flex justify-content-center align-items-center me-4 mt-3' target="_blank">
+              <a type='button' href={`https://bscscan.com/address/${lannistAddress}#code`} className='btn lnst-red-btn d-flex justify-content-center align-items-center me-4 mt-3' target="_blank">
                 <FaBinoculars />
                 <span className='ms-2'>LNIST</span>
               </a>
@@ -264,7 +264,7 @@ const LannisterApp = () => {
 
           <div className="col-lg-3 d-flex justify-content-center align-items-center">
             <div>
-              <a type='button' className='btn btn-secondary btn-p-sm focus-no-shadow d-flex justify-content-center align-items-center mb-3' style={{ width: '100%' }} href="https://pancakeswap.finance/swap?outputCurrency=0xfFa8743e9Cb0e1D3f3D66b430a06a8B0F4C86c65" target="_blank">
+              <a type='button' className='btn btn-secondary btn-p-sm focus-no-shadow d-flex justify-content-center align-items-center mb-3' style={{ width: '100%' }} href={`https://pancakeswap.finance/swap?outputCurrency=${lannistAddress}`} target="_blank">
                 <FaCartArrowDown />
                 <span className='ms-2'>Buy $LNIST</span>
               </a>

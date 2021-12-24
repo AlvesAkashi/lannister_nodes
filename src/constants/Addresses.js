@@ -1,2 +1,2 @@
-export const nodeRewardManagementAddress = '0x8Ee20161d412bD494dfCDe60adeB6592185AA92E';
-export const lannistAddress = '0xfFa8743e9Cb0e1D3f3D66b430a06a8B0F4C86c65';
+export const nodeRewardManagementAddress = '0x6512d1e701D777c07E40E14Db8beBcb3a30C65A6';
+export const lannistAddress = '0xa52d5De703d0c62f4fd91b30f40eC49D8b3C42F7';

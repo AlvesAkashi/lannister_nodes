@@ -6,6 +6,8 @@ import { FaDiscord, FaTwitter } from 'react-icons/fa'
 import Footer from '../../components/Footer';
 import IntroduceCard from '../../components/IntroduceCard';
 
+import { lannistAddress } from '../../constants/Addresses';
+
 const Home = () => {
   const introduce = [
     {
@@ -54,7 +56,7 @@ const Home = () => {
         <Link to='/app'>
           <button type='button' className='btn lnst-red-btn btn-large mt-3'><span className='fw-bold'>Launch App</span></button>
         </Link>
-        <a type='button' className='btn lnst-red-btn btn-large mt-3' href="https://pancakeswap.finance/swap?outputCurrency=0xfFa8743e9Cb0e1D3f3D66b430a06a8B0F4C86c65" target="_blank"><span className='fw-bold'>Buy $LNIST</span></a>
+        <a type='button' className='btn lnst-red-btn btn-large mt-3' href={`https://pancakeswap.finance/swap?outputCurrency=${lannistAddress}`} target="_blank"><span className='fw-bold'>Buy $LNIST</span></a>
       </div>
 
       <div className="row mt-4">
